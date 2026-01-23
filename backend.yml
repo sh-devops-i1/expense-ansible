@@ -35,13 +35,14 @@
     - name: Download and Extract App content
       ansible.builtin.unarchive:
         src:  https://expense-artifacts.s3.amazonaws.com/expense-backend-v2.zip
-        dest: /usr/local/bin
+        dest: /app
         remote_src: yes
 
-    - name: Install nodejs dependencies npm package
+    - name: Download NodeJS Dependencies
       community.general.npm:
-         path: /app
-         state: latest
+          path: /app
+          state: latest
+
     - name: Install Mysql client
       ansible.builtin.dnf:
         name: mysql

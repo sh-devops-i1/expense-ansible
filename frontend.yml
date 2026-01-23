@@ -25,7 +25,7 @@
     - name: Download and Extract App content
       ansible.builtin.unarchive:
         src: https://expense-artifacts.s3.amazonaws.com/expense-frontend-v2.zip
-        dest: /usr/local/bin
+        dest: /usr/share/nginx/html
         remote_src: yes
 
     - name: Starting Nginx
