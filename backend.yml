@@ -1,8 +1,3 @@
-#set -e
-#source common.sh
-#mysql_root_password=$1
-#app_dir=/app
-#component=backend
 - name: Backend Setup
   hosts: all
   become: yes
@@ -45,26 +40,25 @@
 
     - name: Install nodejs dependencies npm package
       community.general.npm:
+         path: /app
          state: latest
+    - name: Install Mysql client
+      ansible.builtin.dnf:
+        name: mysql
+        state: installed
 
+    - name: Load Schema
+      community.mysql.mysql_db:
+        state: import
+        name: all
+        login_user: root
+        login_password: ExpenseApp@1
+        target: /app/schema/backend.sql
+        login_host: mysql-dev.mohdshuja.com
 
-#app_pre_req
-#
-#print_Head "install nodejs dependencies npm package"
-#npm install &>> $LOG
-#print_Status $?
-#
-#print_Head "Starting Backend.."
-#systemctl daemon-reload &>> $LOG
-#systemctl enable backend &>> $LOG
-#systemctl start backend &>> $LOG
-#print_Status $?
-#
-#print_Head "Install mysql client"
-#dnf install mysql -y &>> $LOG
-#print_Status $?
-#
-#print_Head "Setup Schema"
-#mysql -h 172.31.29.34 -uroot -p${mysql_root_password} < /app/schema/backend.sql
-#print_Status $?
-#
+    - name: Starting Backend
+      ansible.builtin.systemd_service:
+        name: backend
+        state: installed
+        enabled: true
+        daemon_reload: true
