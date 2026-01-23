@@ -1,1 +1,70 @@
-frontend.yml
+#set -e
+#source common.sh
+#mysql_root_password=$1
+#app_dir=/app
+#component=backend
+- name: Backend Setup
+  hosts: all
+  become: yes
+  tasks:
+    - name: Disable nodejs
+      ansible.builtin.shell: dnf module disable nodejs -y
+
+    - name: Enable nodejs
+      ansible.builtin.shell: dnf module enable nodejs:20 -y
+
+    - name: Install nodejs
+      ansible.builtin.dnf:
+        name: nodejs
+        state: installed
+
+    - name: Add user
+      ansible.builtin.user:
+        name: expense
+
+    - name: Copy service file to Systemd
+      ansible.builtin.copy:
+        src: backend.service
+        dest: /etc/systemd/system/backend.service
+
+    - name: Clean Old content
+      ansible.builtin.file:
+        path: /app
+        state: absent
+
+    - name: Creating Directory
+      ansible.builtin.file:
+        path: /app
+        state: directory
+
+    - name: Download and Extract App content
+      ansible.builtin.unarchive:
+        src:  https://expense-artifacts.s3.amazonaws.com/expense-backend-v2.zip
+        dest: /usr/local/bin
+        remote_src: yes
+
+    - name: Install nodejs dependencies npm package
+      community.general.npm:
+         state: latest
+
+
+#app_pre_req
+#
+#print_Head "install nodejs dependencies npm package"
+#npm install &>> $LOG
+#print_Status $?
+#
+#print_Head "Starting Backend.."
+#systemctl daemon-reload &>> $LOG
+#systemctl enable backend &>> $LOG
+#systemctl start backend &>> $LOG
+#print_Status $?
+#
+#print_Head "Install mysql client"
+#dnf install mysql -y &>> $LOG
+#print_Status $?
+#
+#print_Head "Setup Schema"
+#mysql -h 172.31.29.34 -uroot -p${mysql_root_password} < /app/schema/backend.sql
+#print_Status $?
+#
