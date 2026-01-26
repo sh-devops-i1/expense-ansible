@@ -1,1 +1,4 @@
-set-prompt frontend
+- name: Setup Prompt
+  ansible.builtin.shell: set-prompt frontend
+
+
