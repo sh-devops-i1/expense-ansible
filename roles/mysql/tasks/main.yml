@@ -20,7 +20,6 @@
 
 - name: Load Schema
   community.mysql.mysql_info:
-    target: /app/schema/backend.sql
     login_user: root
     login_password: ExpenseApp@1
     filter: version
