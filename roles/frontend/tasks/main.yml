@@ -4,7 +4,7 @@
     state: installed
 
 - name: copy nginx Reverse proxy conf file
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: expense.conf
     dest: /etc/nginx/default.d/expense.conf
 
