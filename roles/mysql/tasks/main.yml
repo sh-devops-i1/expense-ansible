@@ -18,14 +18,6 @@
       - cryptography
     executable: pip3.9
 
-- name: Load Schema
-  community.mysql.mysql_info:
-    login_user: root
-    login_password: ExpenseApp@1
-    filter: version
-    login_host: mysql-dev.mohdshuja.com
-  register: mysql_root_password
-
 - name: Check the DB connection with our password
   community.mysql.mysql_info:
     login_user: root
