@@ -1,4 +1,4 @@
 - name: Setup Prompt
-  ansible.builtin.shell: set-prompt frontend
+  ansible.builtin.shell: set-prompt {{ role_name}}-{{ env }}
 
 
