@@ -1,3 +1,2 @@
 component=$1
-env
-#ansible-playbook -i $component-dev.mohdshuja.com, -e ansible_user=ec2-user -e ansible_password=DevOps321 -e env=dev -e role_name=frontend expense.yml
+ansible-playbook -i $component-$env.mohdshuja.com, -e ansible_user=ec2-user -e ansible_password=DevOps321 -e env=$env -e role_name=$component expense.yml
