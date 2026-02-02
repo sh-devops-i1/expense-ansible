@@ -1,0 +1,12 @@
+[Unit]
+Description = node_exporter Service
+
+[Service]
+User=bin
+
+ExecStart=/opt/node_exporter-{{ version }}.linux-amd64
+
+SyslogIdentifier=node_exporter
+
+[Install]
+WantedBy=multi-user.target
