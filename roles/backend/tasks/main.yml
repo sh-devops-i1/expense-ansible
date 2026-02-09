@@ -50,6 +50,11 @@
     login_password: ExpenseApp@1
     login_host: mysql-dev.mohdshuja.com
 
+- name: import newrelic nodejs
+  ansible.builtin.import_role:
+    name: Newrelic
+    tasks_from: nodejs
+
 - name: Start Backend Service
   ansible.builtin.systemd_service:
     name: backend
@@ -57,7 +62,3 @@
     enabled: yes
     daemon_reload: yes
 
-- name: import newrelic nodejs
-  ansible.builtin.import_role:
-    name: Newrelic
-    tasks_from: nodejs
