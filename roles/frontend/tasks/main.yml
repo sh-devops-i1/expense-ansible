@@ -18,3 +18,9 @@
     name: nginx
     state: started
     enabled: true
+
+- name: Newrelic Setup Nginx
+  ansible.builtin.import_role:
+    name: Newrelic
+    tasks_from: nginx
+
