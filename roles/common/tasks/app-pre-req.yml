@@ -1,14 +1,15 @@
-- name: Clean Old content
+- name: Clean the Old Content
   ansible.builtin.file:
     path: "{{ app_loc }}"
     state: absent
 
-- name: Creating Directory
+- name: Create App Directory
   ansible.builtin.file:
     path: "{{ app_loc }}"
     state: directory
-    owner: "{{ app_user }}"
-    group: "{{ app_user }}"
+    owner: "{{app_user}}"
+    group: "{{app_user}}"
+
 
 - name: Download and Extract App content
   ansible.builtin.unarchive:
