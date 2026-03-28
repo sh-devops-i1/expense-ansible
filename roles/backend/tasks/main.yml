@@ -11,7 +11,7 @@
 
 - name: Adding Application User
   ansible.builtin.user:
-    name: expense
+    name: "{{app_user}}"
 
 - name: Run tasks/app-pre-req.yaml instead of 'main'
   ansible.builtin.import_role:
