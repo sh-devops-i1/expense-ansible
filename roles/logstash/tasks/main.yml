@@ -16,5 +16,5 @@
 - name: start logstash
   ansible.builtin.systemd_service:
     name: logstash
-    state: started
+    state: restarted
     enabled: true
